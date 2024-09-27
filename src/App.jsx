@@ -18,6 +18,7 @@ import Login from "./Components/Login.jsx";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "./context/auth-context.jsx";
 import axios from "axios";
+import ProjectDetails from "./Components/projectDetails/ProjectDetails.jsx";
 function App() {
   const [show, setShow] = useState(false);
    const {isAdmin,setAdmin,Authenticate}=useAuth()
@@ -53,7 +54,7 @@ function App() {
     return (
       <div className="relative">
         {/* <Skilinf/> */}
-        {show && <Popup show={show} setShow={setShow} />}
+        {/* {show && <Popup show={show} setShow={setShow} />} */}
         <Nav />
         <HeroSectionTwo />
         <SkillsInfo />
@@ -72,6 +73,7 @@ function App() {
     <Routes>
       <Route path="/admin" element={<Login />} />
       <Route path="/" element={<UserPage/>} />
+      <Route path='project-details' element={<ProjectDetails/>}/>
     </Routes>
   );
 }

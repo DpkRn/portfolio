@@ -5,8 +5,10 @@ import img3 from "../assets/project-3.jpg";
 import img2 from "../assets/project-2.jpg";
 import img4 from "../assets/project-4.jpg";
 import { useAuth } from "../context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 function ResentWork() {
+  const navigate=useNavigate()
   const {isAdmin}=useAuth()
   const handleButton = (e) => {
     const ind = document.querySelector(".indicator");
@@ -26,6 +28,16 @@ function ResentWork() {
       }
     });
   };
+
+
+const modifyProject=(id)=>{
+
+  if(id){
+    navigate('/project-details',{state:{projectId:'id'}})
+  }else{
+    navigate('/project-details')
+  }
+}
 
   return (
     <>
@@ -112,16 +124,31 @@ function ResentWork() {
             <div className="indicator top-0 left-0 absolute h-[100%] w-[20%] grid place-items-center bg-blue-500 rounded-full  duration-300 text-[aqua] ">All</div>
           </div>
         </div>
+
         <div className=" scrolling-container   whitespace-nowrap   ">
-          <div className="card card_p inline-block lg:w-[31%] md:w-[48%] sm:w-[96%]  bg-white shadow-lg rounded-lg  mx-2  my-4 lg:mx-3 xl:mx-4">
+
+          <div className="card card_ui inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
-              <h2 className="text-xl font-bold">Project 1</h2>
+             <div className="cardHeader flex justify-between items-center">
+             <h2 className="text-xl font-bold">Project 1 </h2>
+             {isAdmin&&<button className="bg-slate-400  px-3 py-1 rounded-xl font-bold active:bg-slate-600 hover:cursor-pointer" onClick={(e)=>{modifyProject('id')}} >Edit</button>}
+             </div>
+             
               <img src={img1} alt="img" />
-              <p className="text-gray-600">Description of Project 1</p>
-              <div className="cardTitle">Description of Project 1</div>
-              {isAdmin&&<button>Edit</button>}
-            </div>
+              <p className="text-gray-600">Description</p>
+              <div className="cardTitle">
+                <div className="flex flex-col border-2 border-solid  h-full border-red-400 m-5">
+                  <h3 className="font-bold text-white text-2xl uppercase">Title</h3>
+                  <span className="font-semibold text-blue-500 mt-5 text-xl">Description</span>
+                  <span className="absolute right-6 bottom-4 hover:cursor-pointer text-blue-400 text-lg" >read more...</span>
+
+                </div>
+              </div>
+              </div>
           </div>
+
+
+
           <div className="card card_ui inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
               <h2 className="text-xl font-bold">UI Design 1</h2>
@@ -130,6 +157,8 @@ function ResentWork() {
               <div className="cardTitle">Description of Project 1</div>
             </div>
           </div>
+
+
           <div className="card card_ew inline-block lg:w-[31%] md:w-[48%] sm:w-[96%]  bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
               <h2 className="text-xl font-bold">Ecommerce 1</h2>
@@ -138,6 +167,9 @@ function ResentWork() {
               <div className="cardTitle">Description of Project 1</div>
             </div>
           </div>
+
+
+
           <div className="card card_sw inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
               <h2 className="text-xl font-bold">Social Web 1</h2>
@@ -155,6 +187,8 @@ function ResentWork() {
               <div className="cardTitle">Description of Project 1</div>
             </div>
           </div>
+
+
           <div className="card card_ui inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
               <h2 className="text-xl font-bold">UI Design 1</h2>
@@ -163,6 +197,8 @@ function ResentWork() {
               <div className="cardTitle">Description of Project 1</div>
             </div>
           </div>
+
+
           <div className="card card_ew inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
               <h2 className="text-xl font-bold">Ecommerce 1</h2>
@@ -171,6 +207,8 @@ function ResentWork() {
               <div className="cardTitle">Description of Project 1</div>
             </div>
           </div>
+
+
           <div className="card card_sw inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
               <h2 className="text-xl font-bold">Social Web 1</h2>
@@ -181,6 +219,9 @@ function ResentWork() {
           </div>
         </div>
       {/* </div> */}
+      {isAdmin&&<div className="text-right"><button className="bg-slate-400 mr-10 px-4 py-3 rounded-xl font-bold active:bg-slate-600 hover:cursor-pointer" onClick={()=>{
+        modifyProject(null)
+      }}>Add new project</button></div>}
     </>
   );
 }
