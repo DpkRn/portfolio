@@ -1,40 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import projectImg from "../../assets/blog-2.jpg";
 import { useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 
+import axios from "axios";
+
 function ProjectDetails() {
-    const location=useLocation()
-    const {projectId}=location.state||{}
-    
+  const location = useLocation();
+  const { projectId } = location.state || {};
 
-//add project
-const addProject=async()=>{
- 
+  //    useState(()=>{
 
-    
-}
-//edit project
+  //    },[])
 
-const editProject=async ()=>{
+  //add project
+  const addProject = async (values) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/projects/addproject",
+        values,
+        { withCredentials: true }
+      );
+      
+      if (response.status === 201) {
+        console.log(response.data);
+        console.log("data added !");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //edit project
 
-}
+  const editProject = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/projects/editproject",
+        { ...values, id: projectId },
+        { withCredentials: true }
+      );
 
-const {values,errors,touched, handleBlur,handleSubmit, handleChange,getFieldProps}=useFormik({
-  initialValues:{
-    title:'',
-    projectType:'',
-    description:'',
+      if (response.status === 201) {
+        console.log(response.data);
+        console.log("data updated !");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  },
-  onSubmit: () => {
-    console.log(values);
-  },
-})
-
-
-
-
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleSubmit,
+    handleChange,
+    getFieldProps,
+  } = useFormik({
+    initialValues: {
+      title: "",
+      projectType: "website",
+      description: "",
+    },
+    onSubmit: () => {
+      projectId ? editProject(projectId) : addProject(values);
+    },
+  });
 
   return (
     <div>
@@ -44,54 +76,57 @@ const {values,errors,touched, handleBlur,handleSubmit, handleChange,getFieldProp
       >
         <div className="heading mx-auto text-center pt-20">
           <h1 className="mx-auto  text-center sm:text-4xl text-3xl font-bold">
-            {projectId?"Edit Project":"Add New Project"}
+            {projectId ? "Edit Project" : "Add New Project"}
           </h1>
         </div>
         <div className="form-portion bg-sky-100 sm:w-[80%] w-[90%] mx-auto rounded-3xl  ">
           <form className="p-5 mt-5" onSubmit={handleSubmit}>
-           <div className="flex md:flex-row flex-col md:justify-center md:items-center md:p-5 gap-5 ">
-           <div className="md:mt-1 mt-2 md:flex-1 grid place-content-center  ">
-              <label for="subject" className="text-xl font-bold">
-                Image :{" "}
-              </label>
-              <br />
-              <img
-                className="  w-[300px] h-[300px] rounded-xl border-2 border-solid border-black object-cover shadow-xl shadow-black"
-                src={projectImg}
-              />
-            </div>
-            <div className="initials flex  md:flex-col flex-col md:flex-1 gap-5   ">
-              <label for="title" className="text-xl font-bold md:mb-0 mb-1">
-                Title :{" "}
-              </label>
-              <input
-                type="text"
-                name="title"
-                id=""
-                placeholder="enter title here"
-                className=" w-1/1 px-4 py-4 md:mb-0 mb-3 rounded-xl"
-                {...getFieldProps("title")}
-              />
+            <div className="flex md:flex-row flex-col md:justify-center md:items-center md:p-5 gap-5 ">
+              <div className="md:mt-1 mt-2 md:flex-1 grid place-content-center  ">
+                <label htmlFor="subject" className="text-xl font-bold">
+                  Image :{" "}
+                </label>
+                <br />
+                <img
+                  className="  w-[300px] h-[300px] rounded-xl border-2 border-solid border-black object-cover shadow-xl shadow-black"
+                  src={projectImg}
+                />
+              </div>
+              <div className="initials flex  md:flex-col flex-col md:flex-1 gap-5   ">
+                <label htmlFor="title" className="text-xl font-bold md:mb-0 mb-1">
+                  Title :{" "}
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  id=""
+                  placeholder="enter title here"
+                  className=" w-1/1 px-4 py-4 md:mb-0 mb-3 rounded-xl"
+                  {...getFieldProps("title")}
+                />
 
-              <label for="projectType" className="text-xl font-bold md:mb-0 mb-1">
-                Project type :{" "}
-              </label>
-              <select
-                name="projectType"
-                id=""
-                className=" w-1/1 px-4 py-4 rounded-xl"
-                {...getFieldProps("projectType")}
-              >
-                <option>Website</option>
-                <option>WebApps</option>
-                <option>MobileApps</option>
-                <option>ComputerSoftware</option>
-              </select>
+                <label
+                  htmlFor="projectType"
+                  className="text-xl font-bold md:mb-0 mb-1"
+                >
+                  Project type :{" "}
+                </label>
+                <select
+                  name="projectType"
+                  id=""
+                  className=" w-1/1 px-4 py-4 rounded-xl"
+                  {...getFieldProps("projectType")}
+                >
+                  <option>Website</option>
+                  <option>WebApps</option>
+                  <option>MobileApps</option>
+                  <option>ComputerSoftware</option>
+                </select>
+              </div>
             </div>
-           </div>
             <div className="md:p-5 p-1 sm:mt-1 mt-1">
               <div className="mt-5">
-                <label for="description" className="text-xl font-bold">
+                <label htmlFor="description" className="text-xl font-bold">
                   Description{" "}
                 </label>
                 <br />
@@ -110,9 +145,8 @@ const {values,errors,touched, handleBlur,handleSubmit, handleChange,getFieldProp
               <button
                 type="submit"
                 className="px-4 py-2 mx-auto rounded-xl text-center text-xl bg-black text-white hover:text-black hover:bg-white hover:font-bold hover:shadow-xl"
-                onClick={projectId?editProject:addProject}
               >
-                {projectId?"Save Project":"Add Project"}
+                {projectId ? "Save Project" : "Add Project"}
               </button>
             </div>
           </form>
