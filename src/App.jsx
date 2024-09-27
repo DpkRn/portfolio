@@ -19,10 +19,14 @@ import { Routes, Route } from "react-router-dom";
 import { useAuth } from "./context/auth-context.jsx";
 import axios from "axios";
 import ProjectDetails from "./Components/projectDetails/ProjectDetails.jsx";
+import { useProject } from "./context/project-context.jsx";
+
+
 function App() {
   const [show, setShow] = useState(false);
    const {isAdmin,setAdmin,Authenticate}=useAuth()
-   console.log(Authenticate);
+   const {projects,setProjects}=useProject()
+   console.log(useProject())
    
   
 
@@ -41,6 +45,21 @@ function App() {
     
   };
 
+
+
+  const getAllProjects=async ()=>{
+    try{
+      const response=await axios.get('http://localhost:8080/api/projects/getallprojects',{withCredentials:true})
+      if(response.status===200){
+        // console.log(response.data.projects)
+        setProjects(response.data.projects)
+      }
+    }catch(err){
+      console.log(err)
+    }
+  }
+
+
   useEffect(() => {
     const showValue = sessionStorage.getItem("showValue");
     if (!showValue) {
@@ -48,6 +67,7 @@ function App() {
       sessionStorage.setItem("showValue", true);
     }
     verifyToken()
+    getAllProjects()
   }, [isAdmin,Authenticate]);
 
   function UserPage() {

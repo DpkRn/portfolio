@@ -6,10 +6,12 @@ import img2 from "../assets/project-2.jpg";
 import img4 from "../assets/project-4.jpg";
 import { useAuth } from "../context/auth-context";
 import { useNavigate } from "react-router-dom";
+import { useProject } from "../context/project-context";
 
 function ResentWork() {
   const navigate=useNavigate()
   const {isAdmin}=useAuth()
+  const {projects}=useProject()
   const handleButton = (e) => {
     const ind = document.querySelector(".indicator");
     const button = e.target;
@@ -127,29 +129,29 @@ const modifyProject=(id)=>{
 
         <div className=" scrolling-container   whitespace-nowrap   ">
 
-          <div className="card card_ui inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
+        {projects&&projects.map((project)=> <div key={project._id} className="card card_ui inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
              <div className="cardHeader flex justify-between items-center">
-             <h2 className="text-xl font-bold">Project 1 </h2>
+             <h2 className="text-xl font-bold">{project.title} </h2>
              {isAdmin&&<button className="bg-slate-400  px-3 py-1 rounded-xl font-bold active:bg-slate-600 hover:cursor-pointer" onClick={(e)=>{modifyProject('id')}} >Edit</button>}
              </div>
              
               <img src={img1} alt="img" />
-              <p className="text-gray-600">Description</p>
+              {/* <p className="text-gray-600">{project.description}</p> */}
               <div className="cardTitle">
-                <div className="flex flex-col border-2 border-solid  h-full border-red-400 m-5">
-                  <h3 className="font-bold text-white text-2xl uppercase">Title</h3>
-                  <span className="font-semibold text-blue-500 mt-5 text-xl">Description</span>
-                  <span className="absolute right-6 bottom-4 hover:cursor-pointer text-blue-400 text-lg" >read more...</span>
+                <div className="flex flex-col  text-center border-solid  h-full m-5">
+                  <h3 className="font-bold text-[aqua] text-2xl uppercase">{project.title}</h3>
+                  <span className="font-semibold text-white text-justify text-wrap mt-5 text-xl">{project.description.slice(0,150)}</span>
+                  <span className="absolute right-6 bottom-4 border rounded-md px-2 hover:cursor-pointer text-[aqua] font-bold text-lg" >read more...</span>
 
                 </div>
               </div>
               </div>
-          </div>
+          </div>)}
 
 
 
-          <div className="card card_ui inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
+          {/* <div className="card card_ui inline-block lg:w-[31%] md:w-[48%] sm:w-[96%] bg-white shadow-lg rounded-lg mx-2 my-4 lg:mx-3 xl:mx-4">
             <div className="p-4 cardImg">
               <h2 className="text-xl font-bold">UI Design 1</h2>
               <img src={img2} alt="img" />
@@ -216,7 +218,7 @@ const modifyProject=(id)=>{
               <p className="text-gray-600">Description of Social Web 1</p>
               <div className="cardTitle">Description of Project 1</div>
             </div>
-          </div>
+          </div> */}
         </div>
       {/* </div> */}
       {isAdmin&&<div className="text-right"><button className="bg-slate-400 mr-10 px-4 py-3 rounded-xl font-bold active:bg-slate-600 hover:cursor-pointer" onClick={()=>{
