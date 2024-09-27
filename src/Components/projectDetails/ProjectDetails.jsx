@@ -1,6 +1,7 @@
 import React from "react";
 import projectImg from "../../assets/blog-2.jpg";
 import { useLocation } from "react-router-dom";
+import { useFormik } from "formik";
 
 function ProjectDetails() {
     const location=useLocation()
@@ -13,13 +14,23 @@ const addProject=async()=>{
 
     
 }
-
-
 //edit project
 
 const editProject=async ()=>{
 
 }
+
+const {values,errors,touched, handleBlur,handleSubmit, handleChange,getFieldProps}=useFormik({
+  initialValues:{
+    title:'',
+    projectType:'',
+    description:'',
+
+  },
+  onSubmit: () => {
+    console.log(values);
+  },
+})
 
 
 
@@ -37,7 +48,7 @@ const editProject=async ()=>{
           </h1>
         </div>
         <div className="form-portion bg-sky-100 sm:w-[80%] w-[90%] mx-auto rounded-3xl  ">
-          <form className="p-5 mt-5">
+          <form className="p-5 mt-5" onSubmit={handleSubmit}>
            <div className="flex md:flex-row flex-col md:justify-center md:items-center md:p-5 gap-5 ">
            <div className="md:mt-1 mt-2 md:flex-1 grid place-content-center  ">
               <label for="subject" className="text-xl font-bold">
@@ -50,7 +61,7 @@ const editProject=async ()=>{
               />
             </div>
             <div className="initials flex  md:flex-col flex-col md:flex-1 gap-5   ">
-              <label for="full-name" className="text-xl font-bold md:mb-0 mb-1">
+              <label for="title" className="text-xl font-bold md:mb-0 mb-1">
                 Title :{" "}
               </label>
               <input
@@ -59,15 +70,17 @@ const editProject=async ()=>{
                 id=""
                 placeholder="enter title here"
                 className=" w-1/1 px-4 py-4 md:mb-0 mb-3 rounded-xl"
+                {...getFieldProps("title")}
               />
 
-              <label for="full-name" className="text-xl font-bold md:mb-0 mb-1">
+              <label for="projectType" className="text-xl font-bold md:mb-0 mb-1">
                 Project type :{" "}
               </label>
               <select
                 name="projectType"
                 id=""
                 className=" w-1/1 px-4 py-4 rounded-xl"
+                {...getFieldProps("projectType")}
               >
                 <option>Website</option>
                 <option>WebApps</option>
@@ -78,7 +91,7 @@ const editProject=async ()=>{
            </div>
             <div className="md:p-5 p-1 sm:mt-1 mt-1">
               <div className="mt-5">
-                <label for="subject" className="text-xl font-bold">
+                <label for="description" className="text-xl font-bold">
                   Description{" "}
                 </label>
                 <br />
@@ -89,6 +102,7 @@ const editProject=async ()=>{
                   className="w-[100%] px-4 py-2 rounded-xl appearance-none text-heading text-md"
                   autoComplete="off"
                   spellCheck="false"
+                  {...getFieldProps("description")}
                 ></textarea>
               </div>
             </div>
