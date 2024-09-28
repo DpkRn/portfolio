@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify';
 
 function Login() {
     const [email,setEmail]=useState()
@@ -7,21 +8,20 @@ function Login() {
 
 
     const login=async(e)=>{
-        console.log('sending')
          e.preventDefault()
        try{
         const response=await axios.post('http://localhost:8080/api/auth/login',{email:email,password:password},{withCredentials:true})
         if(response.status===200){
             if(response.data.success===true){
-                alert("login success full");
+                toast.success("login successfull")
             }else{
-                alert("login denied")
+               toast.error("login denied")
             }
         }
 
        
        }catch(err){
-        console.log(err)
+        toast.error("login error")
        }
     };
     
@@ -73,6 +73,7 @@ function Login() {
       </div>
   </div>
 </section>
+<ToastContainer/>
     </div></>
   )
 }
