@@ -15,7 +15,7 @@ export const ProjectContextProvider = ({ children }) => {
   const getAllProjects = async () => {
     try {
       //const response = await axios.get('http://localhost:8080/api/projects/getallprojects', { withCredentials: true });
-      const response = await axios.get('https://portfolio-server-beige-eta.vercel.app/api/projects/getallprojects', { withCredentials: true });
+      const response = await axios.get('https://portfolio-server-beige-eta.vercel.app/api/projects/getallprojects');
       if (response.status === 200) {
         setProjects(response.data.projects);
         console.log("Projects fetched successfully:", response.data.projects);  // Log the response projects
