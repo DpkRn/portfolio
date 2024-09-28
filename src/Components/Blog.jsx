@@ -4,7 +4,7 @@ import './Blog.css'
 function Blog() {
   return (
     <>   
-    <div className="services-area " id="blogSection">
+    <div className="services-area  bg-gray-900  " id="blogSection">
   <div className="wrapper py-5">
     <div className="section-header">
       <h1 className="

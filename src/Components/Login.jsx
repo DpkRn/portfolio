@@ -10,7 +10,8 @@ function Login() {
     const login=async(e)=>{
          e.preventDefault()
        try{
-        const response=await axios.post('http://localhost:8080/api/auth/login',{email:email,password:password},{withCredentials:true})
+        // const response=await axios.post('http://localhost:8080/api/auth/login',{email:email,password:password},{withCredentials:true})
+        const response=await axios.post('https://portfolio-woad-three-81.vercel.app/api/auth/login',{email:email,password:password},{withCredentials:true})
         if(response.status===200){
             if(response.data.success===true){
                 toast.success("login successfull")

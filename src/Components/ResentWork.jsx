@@ -127,7 +127,7 @@ function ResentWork() {
          
         </div>
       )}
-       {flag&&<Project project={project}/>}
+       {flag&&<Project project={project} setFlag={setFlag}/>}
     </>
   );
 }

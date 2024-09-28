@@ -21,6 +21,7 @@ import axios from "axios";
 import ProjectDetails from "./Components/projectDetails/ProjectDetails.jsx";
 import { useProject } from "./context/project-context.jsx";
 import { toast, ToastContainer } from "react-toastify";
+import ReviewSection from "./Components/ReviewSection.jsx";
 
 function PrivateRoute({children}){
   const {isAdmin,isLoading}=useAuth()
@@ -67,6 +68,7 @@ function App() {
         <Education />
         <Skils />
         <Blog />
+        <ReviewSection/>
         <Contect />
         <Footer />
         <ToastContainer/>

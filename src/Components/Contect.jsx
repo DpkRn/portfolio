@@ -65,7 +65,7 @@ function Contect() {
       <div
         id="contactSection"
         className="grid grid-cols-1 md:grid-cols-1 gap-0
-    border-2 border-blue-950 pt-10 bg-blue-950 "
+    border-1 border-blue-950 pt-10  bg-gray-900  "
       >
         <div className="section-header my-10">
           <h1
