@@ -1,6 +1,8 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
+
+
 const authContext = createContext(null);
 export const useAuth = () => {
   return useContext(authContext);
@@ -9,14 +11,14 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [isAdmin, setAdmin] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const url=import.meta.env.SERVER
   const Authenticate = () => {
     setAdmin(true);
   };
 
   const verifyToken = async () => {
     try {
-      // const response = await axios.get("http://localhost:8080/api/auth/verify", {
-      const response = await axios.get("https://portfolio-server-beige-eta.vercel.app/api/auth/verify", {
+      const response = await axios.get("http://localhost:8080/api/auth/verify", {
         withCredentials: true,
       });
       if (response.status === 200 && response.data.success) {
