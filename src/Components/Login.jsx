@@ -10,8 +10,10 @@ function Login() {
     const login=async(e)=>{
         
        try{
+        console.log("making request")
         // const response=await axios.post('http://localhost:8080/api/auth/login',{email:email,password:password},{withCredentials:true})
-        const response=await axios.post('https://portfolio-server-beige-eta.vercel.app/api/auth/login',{email:email,password:password},{withCredentials:true})
+        const response=await axios.post('https://portfolio-server-beige-eta.vercel.app/api/auth/login',{email:email,password:password})
+        console.log("request done")
         if(response.status===200){
             if(response.data.success===true){
                 toast.success("login successfull")
