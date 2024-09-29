@@ -11,7 +11,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [isAdmin, setAdmin] = useState(false);
   const [isLoading, setLoading] = useState(true);
-  const url=import.meta.env.SERVER
+
   const Authenticate = () => {
     setAdmin(true);
   };

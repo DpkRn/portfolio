@@ -12,7 +12,7 @@ export const useProject = () => {
 export const ProjectContextProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [isProjectAdded,setProjectAdded]=useState(false)
-  const url=import.meta.env.SERVER
+
   const getAllProjects = async () => {
     try {
       const response = await axios.get('https://portfolio-server-beige-eta.vercel.app/api/projects/getallprojects', { withCredentials: true });
